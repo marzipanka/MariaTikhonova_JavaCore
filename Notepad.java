@@ -8,7 +8,7 @@ public class Notepad {
         lastEmpty = 0;
     }
 
-    public static void create(String headline, String text) {                                        //создать запись
+    public static void create(String headline, String text) {                                        //создать  запись
          arr[lastEmpty] = new Note(headline, text);
          lastEmpty++;
 
