@@ -15,4 +15,7 @@ public class Note {
         return text;
     }
 
+    public void setHeadline(String headline) { this.headline = headline;}
+
+    public void setText(String text) {this.text = text;}
 }

@@ -50,13 +50,13 @@ public class ConsoleNotepad {
                     case 1:
                         System.out.println("Введите новый заголовок.");
                         String head = scanText();
-                        notepad.editHeadline(num, head);
+                        notepad.setHeadline(num, head);
                         menu(notepad);
                         break;
                     case 2:
                         System.out.println("Введите новый текст записи.");
                         String txt = scanText();
-                        notepad.editText(num, txt);
+                        notepad.setText(num, txt);
                         menu(notepad);
                         break;
                     default:

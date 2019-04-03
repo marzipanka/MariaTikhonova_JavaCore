@@ -25,12 +25,12 @@ public class Notepad {
          Переписываем исходный массив во вспомогательный массив, и из вспомогательного в исходный уже расширенный.
           */
         if (lastEmpty%10==0) {
-            Note[] extraArr = new Note[notes.length];
-            for (int i = 0; i < notes.length; i++) {
-
+            Note[] extraArr = new Note[lastEmpty];
+            for (int i = 0; i < lastEmpty; i++) {
+                extraArr[i] = notes[i];
             }
-            notes = new Note[notes.length + ARRAY_SIZE];
-            for (int i = 0; i < extraArr.length; i++) {
+            notes = new Note[lastEmpty + ARRAY_SIZE];
+            for (int i = 0; i < lastEmpty; i++) {
                 notes[i] = extraArr[i];
             }
         }
@@ -49,13 +49,13 @@ public class Notepad {
     }
 
     //редактировать заголовок
-     public void editHeadline(int number, String headline) {
-         notes[number-1] = new Note(headline, notes[number-1].getText());
+     public void setHeadline(int number, String headline) {
+         notes[number-1].setHeadline(headline);
     }
 
     //редактировать текст
-    public void editText(int number, String text) {
-        notes[number-1] = new Note(notes[number-1].getHeadline(), text);
+    public void setText(int number, String text) {
+        notes[number-1].setText(text);
     }
 
     //посмотреть все записи
