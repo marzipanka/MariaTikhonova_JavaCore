@@ -2,7 +2,7 @@ public class Note {
     private String headline;
     private String text;
 
-    Note(String headline, String text) {
+    public Note(String headline, String text) {
         this.headline = headline;
         this.text = text;
     }

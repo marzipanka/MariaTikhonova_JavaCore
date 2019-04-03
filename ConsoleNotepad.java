@@ -20,7 +20,9 @@ public class ConsoleNotepad {
         int choice = scanNumber();
 
         switch (choice) {
-            case 1:                      //создать запись
+
+            //создать запись
+            case 1:
                 System.out.println("Введите заголовок и текст записи.");
                 String headline = scanText();
                 String text = scanText();
@@ -28,7 +30,8 @@ public class ConsoleNotepad {
                 menu(notepad);
                 break;
 
-            case 2:                     //удалить запись
+            //удалить запись
+            case 2:
                 notepad.seeAll();
                 System.out.println("Введите номер записи, которую хотите удалить.");
                 int number = scanNumber();
@@ -36,23 +39,41 @@ public class ConsoleNotepad {
                 menu(notepad);
                 break;
 
-            case 3:                       //редактировать запись
+            //редактировать запись
+            case 3:
                 notepad.seeAll();
-                System.out.println("Введите номер записи, которую хотите отредактировать, а затем новый заголовок и текст.");
+                System.out.println("Введите номер записи, которую хотите отредактировать.");
                 int num = scanNumber();
-                String head = scanText();
-                String txt = scanText();
-                notepad.edit(num, head, txt);
-                menu(notepad);
+                System.out.println("Если вы хотите отредактировать заголовок, нажмите 1. Если вы хотите отредактировать текст записи, нажмите 2.");
+                int headOrText = scanNumber();
+                switch(headOrText) {
+                    case 1:
+                        System.out.println("Введите новый заголовок.");
+                        String head = scanText();
+                        notepad.editHeadline(num, head);
+                        menu(notepad);
+                        break;
+                    case 2:
+                        System.out.println("Введите новый текст записи.");
+                        String txt = scanText();
+                        notepad.editText(num, txt);
+                        menu(notepad);
+                        break;
+                    default:
+                        System.out.println("Неправильный ввод.");
+                        menu(notepad);
+                }
                 break;
 
-            case 4:                         //посмотреть все записи
+            //посмотреть все записи
+            case 4:
                 notepad.seeAll();
                 menu(notepad);
                 break;
 
+            //выход из проги
             case 5:
-                System.out.println("До свидания!");       //выход из проги
+                System.out.println("До свидания!");
                 System.exit(0);
 
             default:

@@ -1,54 +1,69 @@
 public class Notepad {
 
-    private Note[] arr;      //массив для хранения записей
-    private  int lastEmpty;           //lastEmpty отвечает за последнюю свободную ячейку массива
+    //массив для хранения записей
+    private Note[] notes;
 
-    Notepad() {
-        arr = new Note[10];
+    //lastEmpty отвечает за последнюю свободную ячейку массива
+    private  int lastEmpty;
+
+    public static final int ARRAY_SIZE = 10;
+
+    public Notepad() {
+        notes = new Note[ARRAY_SIZE];
         lastEmpty = 0;
     }
 
-    public Note[] getArr() {
-        return arr;
-    }
 
-    public int getLastEmpty() {
-        return lastEmpty;
-    }
-
-    void create(String headline, String text) {                                        //создать запись
-         arr[lastEmpty] = new Note(headline, text);
+    //создать запись
+    public void create(String headline, String text) {
+        notes[lastEmpty] = new Note(headline, text);
          lastEmpty++;
 
-        if (((lastEmpty+1)%10)==0) {                    //проверяем, заканчивается ли место в массиве
-            Note[] extraArr = new Note[arr.length];  //если закончилось, то увеличиваем размер массива на 10
-            for (int i = 0; i < arr.length; i++) {
-                extraArr[i] = arr[i];                  //переписываем исходный массив во вспомогательный массив
+         /*
+         Проверяем, заканчивается ли место в массиве.
+         Если закончилось, то увеличиваем размер массива на 10.
+         Переписываем исходный массив во вспомогательный массив, и из вспомогательного в исходный уже расширенный.
+          */
+        if (lastEmpty%10==0) {
+            Note[] extraArr = new Note[notes.length];
+            for (int i = 0; i < notes.length; i++) {
+
             }
-            arr = new Note[arr.length + 10];
+            notes = new Note[notes.length + ARRAY_SIZE];
             for (int i = 0; i < extraArr.length; i++) {
-                arr[i] = extraArr[i];         //и из вспомогательного в наш родненький уже расширенный
+                notes[i] = extraArr[i];
             }
         }
     }
 
-     void delete(int number) {                    //удалить запись
-        for (int i = number - 1; i < arr.length - 1; i++) {       //переписываем массив
-            arr[i] = arr[i+1];
+    //удалить запись
+     public void delete(int number) {
+
+         //переписываем массив
+        for (int i = number - 1; i < lastEmpty - 1; i++) {
+            notes[i] = notes[i+1];
         }
-        lastEmpty--;   //ввиду того, что одну запись удалили, последняя свободная ячейка сдвигается на -1
+
+         //ввиду того, что одну запись удалили, последняя свободная ячейка сдвигается на -1
+        lastEmpty--;
     }
 
-     void edit(int number, String headline, String text) {                      //редактировать запись
-        arr[number-1] = new Note(headline, text);
-
+    //редактировать заголовок
+     public void editHeadline(int number, String headline) {
+         notes[number-1] = new Note(headline, notes[number-1].getText());
     }
 
-     void seeAll() {           //посмотреть все записи
+    //редактировать текст
+    public void editText(int number, String text) {
+        notes[number-1] = new Note(notes[number-1].getHeadline(), text);
+    }
+
+    //посмотреть все записи
+     public void seeAll() {
         System.out.println("Список ваших записей:");
        for(int i = 0; i < lastEmpty; i++) {
-            System.out.println((i+1) + " - " + arr[i].getHeadline());
-           System.out.println("    " + arr[i].getText());
+            System.out.println((i+1) + " - " + notes[i].getHeadline());
+           System.out.println("    " + notes[i].getText());
         }
 
     }
