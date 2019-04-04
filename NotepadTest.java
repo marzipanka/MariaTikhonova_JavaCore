@@ -1,30 +1,21 @@
 import org.junit.AfterClass;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.Assert.*;
 
 public class NotepadTest {
 
     @Test
-    public void testCreateHeadline() {
-    Notepad notepad = new Notepad();
-    String head = "title1";
-    String txt = "text1";
-    notepad.create(head, txt);
-    assertEquals(notepad.getArr()[0].getHeadline(), head);
-    }
-
-    @Test
-    public void testCreateText() {
+    public void createMethodAddsNewNote() {
         Notepad notepad = new Notepad();
         String head = "title1";
         String txt = "text1";
         notepad.create(head, txt);
+        assertEquals(notepad.getArr()[0].getHeadline(), head);
         assertEquals(notepad.getArr()[0].getText(), txt);
     }
 
     @Test
-    public void testArrayExtends() {
+    public void arraySizeShouldIncreaseWhenLimitIsReached() {
         Notepad notepad = new Notepad();
         for(int i=0; i<11; i++) {
             notepad.create("this is headline", "this is text");
@@ -33,7 +24,7 @@ public class NotepadTest {
     }
 
     @Test
-    public void testDeleteSizeDecreases() {
+    public void deleteShouldDecreaseSize() {
         String head1 = "head1";
         String head2 = "head2";
         String head3 = "head3";
@@ -51,12 +42,12 @@ public class NotepadTest {
     }
 
     @Test
-    public void testEditHeadline() {
+    public void setHeadlineMethodSetsNewHeadline() {
         Notepad notepad = new Notepad();
         String head = "title1";
         String txt = "text1";
         notepad.create(head, txt);
-        notepad.edit(1,"helloHeadline","helloText");
+        notepad.setHeadline(1,"helloHeadline");
         assertEquals(notepad.getArr()[0].getHeadline(), "helloHeadline");
     }
 }

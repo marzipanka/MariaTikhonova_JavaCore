@@ -24,7 +24,7 @@ public class Notepad {
          Если закончилось, то увеличиваем размер массива на 10.
          Переписываем исходный массив во вспомогательный массив, и из вспомогательного в исходный уже расширенный.
           */
-        if (lastEmpty%10==0) {
+        if (lastEmpty == notes.length-1) {
             Note[] extraArr = new Note[lastEmpty];
             for (int i = 0; i < lastEmpty; i++) {
                 extraArr[i] = notes[i];
@@ -46,6 +46,23 @@ public class Notepad {
 
          //ввиду того, что одну запись удалили, последняя свободная ячейка сдвигается на -1
         lastEmpty--;
+
+        /*
+         Проверка оставшегося места в массиве.
+         Если оно больше, чем половина массива, то массив ужимается в 2 раза.
+         Переписываем исходный массив во вспомогательный массив, и из вспомогательного в исходный с измененным размером.
+          */
+        if(notes.length-lastEmpty > notes.length/2) {
+            int newLength = notes.length/2;
+            Note[] extraArr = new Note[lastEmpty];
+            for (int i = 0; i < lastEmpty; i++) {
+                extraArr[i] = notes[i];
+            }
+            notes = new Note[newLength];
+            for (int i = 0; i < lastEmpty; i++) {
+                notes[i] = extraArr[i];
+            }
+         }
     }
 
     //редактировать заголовок
