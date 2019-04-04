@@ -49,10 +49,10 @@ public class Notepad {
 
         /*
          Проверка оставшегося места в массиве.
-         Если оно больше, чем половина массива, то массив ужимается в 2 раза.
+         Если оно больше, чем 3/4 массива, то массив ужимается в 2 раза.
          Переписываем исходный массив во вспомогательный массив, и из вспомогательного в исходный с измененным размером.
           */
-        if(notes.length-lastEmpty > notes.length/2) {
+        if(lastEmpty > ARRAY_SIZE && notes.length-lastEmpty > notes.length*3/4) {
             int newLength = notes.length/2;
             Note[] extraArr = new Note[lastEmpty];
             for (int i = 0; i < lastEmpty; i++) {
