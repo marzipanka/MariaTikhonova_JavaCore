@@ -1,17 +1,19 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Film implements Serializable {
 
     private String filmName;
-    private ArrayList<String> actors;
+    private List<String> actors;
 
-    Film(String filmName) {
+    public Film(String filmName) {
         this.filmName = filmName;
         this.actors = new ArrayList<>();
     }
 
+    @Override
     public String toString() {
         return (filmName + Arrays.toString(actors.toArray()));
     }
