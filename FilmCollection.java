@@ -40,8 +40,12 @@ public class FilmCollection implements Serializable {
     //посмотреть все фильмы
     public String seeAll () {
         try {
-            if (films.size() == 0) System.out.println("Ваша коллекция фильмов пуста.");
-            else System.out.println(Arrays.toString(films.toArray()));
+            if (films.size() == 0) {
+                System.out.println("Ваша коллекция фильмов пуста.");
+            }
+            else {
+                System.out.println(Arrays.toString(films.toArray()));
+            }
             return Arrays.toString(films.toArray());
         } catch(NoSuchElementException e) {
             System.out.println(e + " Ваша коллекция фильмов пуста.");
