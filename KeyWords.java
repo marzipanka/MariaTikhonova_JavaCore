@@ -6,10 +6,8 @@ import javax.lang.model.SourceVersion;
 
 public class KeyWords {
 
-    private Map<String, Integer> keyWordsMap = new HashMap<>();
-
     //Функция, считывающая весь файл с помощью байтовых потоков и возвращающая содержание файла в виде текста.
-    public String readFileByte(String fileName) {
+    public static String readFileByte(String fileName) {
         try(FileInputStream in = new FileInputStream(fileName)) {
             int c;
             StringBuilder stringBuilder = new StringBuilder();
@@ -27,7 +25,7 @@ public class KeyWords {
 
 
     //Функция, считывающая весь файл с помощью символьных потоков и возвращающая содержание файла в виде текста.
-    public String readFileChar(String fileName) {
+    public static String readFileChar(String fileName) {
         try(FileReader in = new FileReader(fileName)) {
             int c;
             StringBuilder stringBuilder = new StringBuilder();
@@ -48,40 +46,36 @@ public class KeyWords {
     //Если является, то проверяем, является ли оно ключевым словом языка Java.
     //Если в нашем Map-е уже есть такое ключевое слово, увеличиваем его value на 1.
     //Если это его первое попадание в Map, то value устанавливается равным 1.
-    public KeyWords countKeyWords(KeyWords kw, String str) {
+    public static Map<String, Integer> countKeyWords(String str) {
+        Map<String, Integer> keyWordsMap = new HashMap<>();
         Pattern p = Pattern.compile("\\b[a-z]*\\b");
         Matcher m = p.matcher(str);
 
         while (m.find()) {
             String word = str.substring(m.start(), m.end());
             if (SourceVersion.isKeyword(word)) {
-                if (kw.keyWordsMap.containsKey(word)) {
-                    kw.keyWordsMap.put(word, kw.keyWordsMap.get(word) + 1);
+                if (keyWordsMap.containsKey(word)) {
+                    keyWordsMap.put(word, keyWordsMap.get(word) + 1);
                 } else {
-                    kw.keyWordsMap.put(word, 1);
+                    keyWordsMap.put(word, 1);
                 }
             }
         }
-        return kw;
+        return keyWordsMap;
     }
 
 
     //Функция для вывода ключевых слов в файл с помощью байтовых потоков.
-    public void writeKeyWordsByte(String fileName, KeyWords kw) {
+    public static void writeKeyWordsByte(String fileName, Map<String, Integer> keyWordsMap) {
 
         try(FileOutputStream out = new FileOutputStream(fileName)) {
             String message = "Powered with byte streams";
             out.write(message.getBytes());
             out.write("\r\n".getBytes());
-            for (String key : kw.keyWordsMap.keySet()) {
-                int value = kw.keyWordsMap.get(key);
-                if (value > 0) {
-                    out.write(key.getBytes());
-                    out.write(" ".getBytes());
-                    String valueStr = value + "";
-                    out.write(valueStr.getBytes());
-                    out.write("\r\n".getBytes());
-                }
+            for (String key : keyWordsMap.keySet()) {
+                int value = keyWordsMap.get(key);
+                String str = key + " " + value + "\r\n";
+                    out.write(str.getBytes());
             }
         } catch (FileNotFoundException e) {
             System.out.println(e + ": " + fileName);
@@ -92,12 +86,12 @@ public class KeyWords {
 
 
     //Функция для вывода ключевых слов в файл с помощью символьных потоков.
-    public void writeKeyWordsChar(String fileName, KeyWords kw) {
+    public static void writeKeyWordsChar(String fileName, Map<String, Integer> keyWordsMap) {
 
         try(FileWriter out = new FileWriter(fileName)) {
             out.write("Powered with character streams\r\n");
-            for (String key : kw.keyWordsMap.keySet()) {
-                    out.write(key + " " + kw.keyWordsMap.get(key) + "\r\n");
+            for (String key : keyWordsMap.keySet()) {
+                    out.write(key + " " + keyWordsMap.get(key) + "\r\n");
             }
         } catch (FileNotFoundException e) {
             System.out.println(e + ": " + fileName);
